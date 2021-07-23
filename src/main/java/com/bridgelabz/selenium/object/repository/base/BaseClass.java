@@ -1,10 +1,12 @@
 package com.bridgelabz.selenium.object.repository.base;
 
-import com.bridgelabz.selenium.object.repository.utility.Library;
+import com.bridgelabz.selenium.object.repository.utility.ReadDataConfig;
 import com.bridgelabz.selenium.object.repository.utility.Log;
+import com.bridgelabz.selenium.object.repository.utility.SendMailUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -23,7 +25,7 @@ public class BaseClass{
         driver = new ChromeDriver();
 
         Log.info ("getting url path from config.properties");
-        String url = Library.getProperty(Library.CONFIG_PATH,"url");
+        String url = ReadDataConfig.getProperty(ReadDataConfig.CONFIG_PATH,"url");
 
         Log.info ("getting url path from config.properties");
         driver.get(url);
@@ -33,9 +35,14 @@ public class BaseClass{
 
     @AfterTest
     public void tearDown() {
+
         Log.info ("close the browser");
-        driver.close ();
-        driver.manage ().timeouts ().implicitlyWait (50,TimeUnit.SECONDS);
+
+    }
+
+    @AfterSuite
+    public void sendEmailData(){
+        SendMailUtil.sendMail ();
     }
 }
 

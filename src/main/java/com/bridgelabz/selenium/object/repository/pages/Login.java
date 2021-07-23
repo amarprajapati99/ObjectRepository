@@ -1,7 +1,7 @@
 package com.bridgelabz.selenium.object.repository.pages;
 
 import com.bridgelabz.selenium.object.repository.base.BaseClass;
-import com.bridgelabz.selenium.object.repository.utility.Library;
+import com.bridgelabz.selenium.object.repository.utility.ReadDataConfig;
 import com.bridgelabz.selenium.object.repository.utility.Log;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,15 +23,15 @@ public class Login extends BaseClass{
         PageFactory.initElements(driver,this);
     }
 
-    public String login() {
+    public void login() {
 
         Log.info ("fetch the user name from config file");
-        input_email.sendKeys(Library.getProperty(Library.CONFIG_PATH,"username"));
+        input_email.sendKeys(ReadDataConfig.getProperty(ReadDataConfig.CONFIG_PATH,"username"));
 
         Log.info ("fetch the user pass from config file");
-        input_pass.sendKeys(Library.getProperty(Library.CONFIG_PATH,"password"));
+        input_pass.sendKeys(ReadDataConfig.getProperty(ReadDataConfig.CONFIG_PATH,"password"));
 
         login_btn.click();
-        return driver.getTitle();
+        //return driver.getTitle();
     }
 }
